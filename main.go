@@ -14,13 +14,16 @@ func main() {
 	}
 
 	switch challenge {
-		case "1":
-			set1.Challenge1()
-		
-		case "2":
-			set1.Challenge2()
-		
-		default:
-			set1.Challenge1()	
+	case "1":
+		set1.Challenge1()
+
+	case "2":
+		set1.Challenge2()
+
+	case "3":
+		set1.Challenge3()
+
+	default:
+		set1.Challenge1()
 	}
 }
