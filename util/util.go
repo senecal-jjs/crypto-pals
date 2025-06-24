@@ -29,3 +29,9 @@ func Xor(bytes1, bytes2 []byte) []byte {
 
 	return output
 }
+
+func PanicOnErr(err error) {
+	if err != nil {
+		panic(err)
+	}
+}

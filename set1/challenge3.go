@@ -15,12 +15,18 @@ func Challenge3() {
 		panic(err)
 	}
 
+	_, plainText := decryptSingleByteXor(cipherBytes)
+
+	fmt.Println(plainText)
+}
+
+func decryptSingleByteXor(cipher []byte) (int, string) {
 	currentScore := -1
 	currentPlainText := ""
 
 	// loop over all possible bytes
 	for i := 0; i <= 255; i++ {
-		keySlice := make([]byte, len(cipherBytes))
+		keySlice := make([]byte, len(cipher))
 
 		// construct a full length key
 		for j := range keySlice {
@@ -28,7 +34,7 @@ func Challenge3() {
 		}
 
 		// xor the full key with the cipher text
-		plainBytes := util.Xor(keySlice, cipherBytes)
+		plainBytes := util.Xor(keySlice, cipher)
 		newScore := score(plainBytes)
 
 		if newScore > currentScore {
@@ -37,7 +43,7 @@ func Challenge3() {
 		}
 	}
 
-	fmt.Println(currentPlainText)
+	return currentScore, currentPlainText
 }
 
 func score(buf []byte) int {
