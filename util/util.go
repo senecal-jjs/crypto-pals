@@ -15,18 +15,8 @@ func HexToBase64(input string) string {
 	return base64.StdEncoding.EncodeToString(bytes)
 }
 
-func XOR(hex1 string, hex2 string) string {
-	bytes1, err1 := hex.DecodeString(hex1)
-	bytes2, err2 := hex.DecodeString(hex2)
-
-	if err1 != nil {
-		panic(err1)
-	}
-
-	if err2 != nil {
-		panic(err2)
-	}
-
+// Xor returns a new buffer with content set to bytes1 xor bytes2
+func Xor(bytes1, bytes2 []byte) []byte {
 	if len(bytes1) != len(bytes2) {
 		panic("Byte arrays must have equal size")
 	}
@@ -37,5 +27,5 @@ func XOR(hex1 string, hex2 string) string {
 		output[i] = bytes1[i] ^ bytes2[i]
 	}
 
-	return hex.EncodeToString(output)
+	return output
 }

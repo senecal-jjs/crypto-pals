@@ -1,10 +1,26 @@
 package main
 
 import (
-	"com/bitcli/crypto/set1"
+	"os"
+
+	"github.com/senecal-jjs/crypto-pals/set1"
 )
 
 func main() {
-	// set1.Challenge1()
-	set1.Challenge2()
+	challenge := ""
+
+	if len(os.Args) >= 2 {
+		challenge = os.Args[1]
+	}
+
+	switch challenge {
+		case "1":
+			set1.Challenge1()
+		
+		case "2":
+			set1.Challenge2()
+		
+		default:
+			set1.Challenge1()	
+	}
 }
