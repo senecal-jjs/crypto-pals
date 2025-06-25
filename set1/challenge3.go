@@ -15,14 +15,15 @@ func Challenge3() {
 		panic(err)
 	}
 
-	_, plainText := decryptSingleByteXor(cipherBytes)
+	_, _, plainText := decryptSingleByteXor(cipherBytes)
 
 	fmt.Println(plainText)
 }
 
-func decryptSingleByteXor(cipher []byte) (int, string) {
+func decryptSingleByteXor(cipher []byte) (int, byte, string) {
 	currentScore := -1
 	currentPlainText := ""
+	currentKey := byte(0)
 
 	// loop over all possible bytes
 	for i := 0; i <= 255; i++ {
@@ -40,10 +41,11 @@ func decryptSingleByteXor(cipher []byte) (int, string) {
 		if newScore > currentScore {
 			currentScore = newScore
 			currentPlainText = string(plainBytes)
+			currentKey = byte(i)
 		}
 	}
 
-	return currentScore, currentPlainText
+	return currentScore, currentKey, currentPlainText
 }
 
 func score(buf []byte) int {

@@ -24,7 +24,7 @@ func Challenge4() {
 
 		util.PanicOnErr(err)
 
-		score, plainText := decryptSingleByteXor(cipherBytes)
+		score, _, plainText := decryptSingleByteXor(cipherBytes)
 
 		if score > bestScore {
 			bestScore = score
