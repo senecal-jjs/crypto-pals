@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/senecal-jjs/crypto-pals/set1"
+	"github.com/senecal-jjs/crypto-pals/set2"
 )
 
 func main() {
@@ -37,6 +38,12 @@ func main() {
 
 	case "8":
 		set1.Challenge8()
+
+	case "9":
+		set2.Challenge9()
+
+	case "10":
+		set2.Challenge10()
 
 	default:
 		set1.Challenge1()
