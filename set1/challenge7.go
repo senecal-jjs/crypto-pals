@@ -19,9 +19,13 @@ func Challenge7() {
 	util.PanicOnErr(err)
 
 	key := []byte("YELLOW SUBMARINE")
+	plainText := decryptAesECB(cipherText, key)
 
+	fmt.Println("DECRYPTED: ", string(plainText))
+}
+
+func decryptAesECB(cipherText []byte, key []byte) []byte {
 	cipher, err := aes.NewCipher(key)
-
 	util.PanicOnErr(err)
 
 	plainText := []byte{}
@@ -34,5 +38,5 @@ func Challenge7() {
 		plainText = append(plainText, r...)
 	}
 
-	fmt.Println("DECRYPTED: ", string(plainText))
+	return plainText
 }
