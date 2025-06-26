@@ -12,14 +12,14 @@ import (
 
 func Challenge11() {
 	cipherText := encryptWithRandomMode([]byte("yellow submarineyellow submarineyellow submarineyellow submarineyellow submarine"))
-	mode := detectAesMode(cipherText)
+	mode := detectAesMode(cipherText, 16)
 
 	fmt.Printf("Detected mode: %q\n", mode)
 }
 
-func detectAesMode(cipherText []byte) string {
+func detectAesMode(cipherText []byte, blockSize int) string {
 	mode := "CBC"
-	chunks := util.ChunkByteArray(cipherText, 16)
+	chunks := util.ChunkByteArray(cipherText, blockSize)
 	dupes := countDuplicates(chunks)
 
 	if dupes > 0 {
