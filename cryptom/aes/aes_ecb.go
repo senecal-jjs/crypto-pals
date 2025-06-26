@@ -31,9 +31,12 @@ func EncryptAesECB(buf []byte, key []byte) []byte {
 	util.PanicOnErr(err)
 
 	cipherText := []byte{}
-	r := make([]byte, len(key))
+	r := make([]byte, cipher.BlockSize())
 
-	plainChunks := util.ChunkByteArray(pkcs7.Pad(buf, len(key)), len(key))
+	plainChunks := util.ChunkByteArray(
+		pkcs7.Pad(buf, cipher.BlockSize()),
+		cipher.BlockSize(),
+	)
 
 	for i := range plainChunks {
 		cipher.Encrypt(r, plainChunks[i])
