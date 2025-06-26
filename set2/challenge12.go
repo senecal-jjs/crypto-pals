@@ -21,16 +21,16 @@ func Challenge12() {
 	unknownString, err := base64.StdEncoding.DecodeString("Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK")
 	util.PanicOnErr(err)
 
-	crack(blockSize, unknownString)
+	attackingBytes := bytes.Repeat([]byte("A"), BLOCK_SIZE-1)
+	crackByteAtATime(blockSize, unknownString, attackingBytes)
 }
 
-func crack(blockSize int, unknownString []byte) {
+func crackByteAtATime(blockSize int, unknownString []byte, attackingBytes []byte) {
 	solve := []byte{}
-	prefix := bytes.Repeat([]byte("A"), blockSize-1)
-	dict := constructDictionary(prefix, 16)
+	dict := constructDictionary(attackingBytes, blockSize)
 
 	for i := range len(unknownString) {
-		solve = append(solve, crackByte(blockSize, prefix, dict, unknownString[i:]))
+		solve = append(solve, crackByte(blockSize, attackingBytes, dict, unknownString[i:]))
 	}
 
 	fmt.Println(string(solve))
