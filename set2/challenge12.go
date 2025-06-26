@@ -26,18 +26,22 @@ func Challenge12() {
 
 func crack(blockSize int, unknownString []byte) {
 	solve := []byte{}
+	prefix := bytes.Repeat([]byte("A"), blockSize-1)
+	dict := constructDictionary(prefix, 16)
 
 	for i := range len(unknownString) {
-		solve = append(solve, crackByte(blockSize, unknownString[i:]))
+		solve = append(solve, crackByte(blockSize, prefix, dict, unknownString[i:]))
 	}
 
 	fmt.Println(string(solve))
 }
 
-func crackByte(blockSize int, unknownString []byte) byte {
-	prefix := bytes.Repeat([]byte("A"), blockSize-1)
-	dict := constructDictionary(prefix, 16)
-
+func crackByte(
+	blockSize int,
+	prefix []byte,
+	dict map[string]int,
+	unknownString []byte,
+) byte {
 	plainText := append(prefix, unknownString...)
 	cipherText := oracle(plainText, key)
 	cipherBlock := cipherText[:blockSize]
