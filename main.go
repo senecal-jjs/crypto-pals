@@ -60,6 +60,9 @@ func main() {
 	case "15":
 		set2.Challenge15()
 
+	case "16":
+		set2.Challenge16()
+
 	default:
 		set1.Challenge1()
 	}
